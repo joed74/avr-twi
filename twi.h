@@ -11,9 +11,55 @@
 #define TWI_BUFFER_LENGTH 32
 #endif
 
-void twi_init();
-void twi_write(uint8_t address, uint8_t* data, uint8_t length, void (*callback)(uint8_t, uint8_t *));
-void twi_read(uint8_t address, uint8_t length, void (*callback)(uint8_t, uint8_t *));
-uint8_t *twi_wait();
+typedef enum {
+	TWI_BUSY,
+	TWI_OK,
+	TWI_NOK,
+} TWI_STATUS;
 
+#ifndef TWS7
+#define TWS7 TWS07
+#endif
+
+#ifndef TWS6
+#define TWS6 TWS06
+#endif
+
+#ifndef TWS5
+#define TWS5 TWS05
+#endif
+
+#ifndef TWS4
+#define TWS4 TWS04
+#endif
+
+#ifndef TWS3
+#define TWS3 TWS03
+#endif
+
+#ifndef TWBR
+#define TWBR TWBR0
+#endif
+
+#ifndef TWSR
+#define TWSR TWSR0
+#endif
+
+#ifndef TWCR
+#define TWCR TWCR0
+#endif
+
+#ifndef TWDR
+#define TWDR TWDR0
+#endif
+
+#ifndef TWI_vect
+#define TWI_vect TWI0_vect
+#endif
+
+void twi_init();
+void twi_resetstate();
+TWI_STATUS twi_write1(uint8_t address, uint8_t data);
+TWI_STATUS twi_write(uint8_t address, uint8_t* data, uint8_t length);
+TWI_STATUS twi_read(uint8_t address, uint8_t *length, uint8_t **data);
 #endif
